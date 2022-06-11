@@ -1,0 +1,11 @@
+.btn {
+  color: white;
+  width: fit-content;
+  height: 75px;
+  padding: 5px 20px;
+  font-size: 32px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  background-color: teal;
+}

@@ -4,11 +4,11 @@ import { Route, Routes } from "react-router-dom";
 import { privateRoutes, publicRoutes, RouteNames } from "../routes";
 
 const AppRouter = () => {
-  const auth = false;
+  const auth = true;
   return auth ? (
     <Routes>
       {privateRoutes.map((route) => (
-        <Route path={route.path} element={route.element} />
+        <Route path={route.path} element={route.element} key={route.path} />
       ))}
       <Route
         path="*"
@@ -18,7 +18,7 @@ const AppRouter = () => {
   ) : (
     <Routes>
       {publicRoutes.map((route) => (
-        <Route path={route.path} element={route.element} />
+        <Route path={route.path} element={route.element} key={route.path} />
       ))}
       <Route path="*" element={<Navigate replace to={RouteNames.MAIN} />} />
     </Routes>

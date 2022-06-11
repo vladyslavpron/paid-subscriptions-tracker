@@ -1,0 +1,19 @@
+.registerBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.registerForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  row-gap: 10px;
+}
+
+.linkToLogin {
+  margin-top: 10px;
+  color: teal;
+}

@@ -1,8 +1,6 @@
-.mainBlock {
-  height: calc(100vh - 50px);
+.wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: green;
 }

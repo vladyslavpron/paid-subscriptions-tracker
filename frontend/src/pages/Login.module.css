@@ -1,0 +1,19 @@
+.loginBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh; */
+}
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  row-gap: 10px;
+}
+
+.linkToRegister {
+  margin-top: 10px;
+  color: teal;
+}

@@ -1,0 +1,21 @@
+.navbar {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: darkslategray;
+}
+
+.navbarItem {
+  border: none;
+  background-color: darkslategray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: wheat;
+  text-decoration: none;
+  padding: 0px 10px;
+  border-left: 2px solid wheat;
+  height: 100%;
+}

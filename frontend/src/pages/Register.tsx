@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import Button from "../components/button/Button";
 import Input from "../components/input/Input";
 import { RouteNames } from "../routes";
-import styles from "./Login.module.css";
+import styles from "./Register.module.css";
 
-function Login() {
+function Register() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
 
   const formSubmitHandler = (event: React.FormEvent) => {
     event.preventDefault();
@@ -15,31 +17,46 @@ function Login() {
   };
 
   return (
-    <div className={styles.loginBlock}>
+    <div className={styles.registerBlock}>
       <form
-        className={styles.loginForm}
+        className={styles.registerForm}
         onSubmit={(event) => formSubmitHandler(event)}
       >
+        <Input
+          label="Name: "
+          input={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
         <Input
           label="Email: "
           input={email}
           onChange={(e) => setEmail(e.target.value)}
           type="email"
+          required
         />
         <Input
           label="Password: "
           input={password}
           onChange={(e) => setPassword(e.target.value)}
           type="password"
+          required
+        ></Input>
+        <Input
+          label="Confirm password: "
+          input={passwordConfirm}
+          onChange={(e) => setPasswordConfirm(e.target.value)}
+          type="password"
+          required
         ></Input>
 
-        <Button>Login</Button>
+        <Button>Register</Button>
       </form>
-      <Link className={styles.linkToRegister} to={RouteNames.REGISTER}>
-        I haven't registered an account yet
+      <Link className={styles.linkToLogin} to={RouteNames.LOGIN}>
+        I already have an account
       </Link>
     </div>
   );
 }
 
-export default Login;
+export default Register;
