@@ -18,8 +18,10 @@ const Dashboard = () => {
 
   return (
     <div className={styles.dashboardBlock}>
-      <div>
+      <div className={styles.spendingsRow}>
         <Button>Add new subscription</Button>
+        <div>Total subscriptions: </div>
+        <div>Closest payment date: </div>
       </div>
       <div className={styles.spendingsRow}>
         <div className={styles.spendingsBlock}>You spend $1238 every month</div>
