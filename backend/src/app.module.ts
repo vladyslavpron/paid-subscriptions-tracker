@@ -20,6 +20,8 @@ dotenv.config({ path: './config.env' });
       autoLoadEntities: true,
       synchronize: true,
       ssl: true,
+
+      // comment nexd property for prod
       extra: {
         ssl: {
           rejectUnauthorized: false,
