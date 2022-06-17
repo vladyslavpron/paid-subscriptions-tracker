@@ -3,6 +3,7 @@ import {
   HttpException,
   HttpStatus,
   Injectable,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
@@ -28,10 +29,7 @@ export class AuthService {
     const user = await this.usersService.getUserByEmail(candidate.email);
 
     if (!user || !(await bcrypt.compare(candidate.password, user.password))) {
-      throw new HttpException(
-        'Invalid email or password',
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new UnauthorizedException('Invalid email or password');
     }
     const token = this.generateToken(user);
 
