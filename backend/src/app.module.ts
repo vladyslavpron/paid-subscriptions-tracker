@@ -6,8 +6,10 @@ import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
 import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
+import { SubscriptionsModule } from './subscriptions/subscriptions.module';
 
 import * as dotenv from 'dotenv';
+import { Subscription } from './subscriptions/subscription.entity';
 
 dotenv.config({ path: './config.env' });
 
@@ -16,7 +18,7 @@ dotenv.config({ path: './config.env' });
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.DATABASE_URL,
-      entities: [User],
+      entities: [User, Subscription],
       autoLoadEntities: true,
       synchronize: true,
       ssl: true,
@@ -32,6 +34,7 @@ dotenv.config({ path: './config.env' });
     }),
     UsersModule,
     AuthModule,
+    SubscriptionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
