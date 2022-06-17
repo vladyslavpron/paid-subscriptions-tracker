@@ -9,11 +9,12 @@ import { AuthService } from './auth.service';
   controllers: [AuthController],
   providers: [AuthService],
   imports: [
-    UsersService,
+    UsersModule,
     JwtModule.register({
-      secret: process.env.SECRET_KEY,
+      secret: `${process.env.SECRET_KEY}`,
       signOptions: { expiresIn: '24h' },
     }),
   ],
+  exports: [AuthModule],
 })
 export class AuthModule {}

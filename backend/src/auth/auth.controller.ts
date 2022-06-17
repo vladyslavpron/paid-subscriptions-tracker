@@ -1,4 +1,5 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Res } from '@nestjs/common';
+import { Response } from 'express';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 
@@ -7,12 +8,32 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('/register')
-  register(@Body() userDto: CreateUserDto) {
-    this.authService.register(userDto);
+  async register(
+    @Body() userDto: CreateUserDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const registrationData = await this.authService.register(userDto);
+    res.cookie('accessToken', registrationData.token, {
+      maxAge: 14 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+      secure: process.env.NODE_END === 'production',
+    });
+    return registrationData;
   }
 
   @Post('/login')
-  login(@Body() userDto: CreateUserDto) {
-    this.authService.login(userDto);
+  async login(
+    @Body() userDto: CreateUserDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const loginData = await this.authService.login(userDto);
+
+    res.cookie('accessToken', loginData.token, {
+      maxAge: 14 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+      secure: process.env.NODE_END === 'production',
+    });
+
+    return loginData;
   }
 }

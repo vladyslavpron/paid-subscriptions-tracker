@@ -21,17 +21,19 @@ dotenv.config({ path: './config.env' });
       synchronize: true,
       ssl: true,
 
-      // comment nexd property for prod
-      extra: {
-        ssl: {
-          rejectUnauthorized: false,
-        },
-      },
+      extra:
+        process.env.NODE_ENV === 'production'
+          ? {}
+          : {
+              ssl: {
+                rejectUnauthorized: false,
+              },
+            },
     }),
-    AuthModule,
     UsersModule,
+    AuthModule,
   ],
-  controllers: [AppController, AuthController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}

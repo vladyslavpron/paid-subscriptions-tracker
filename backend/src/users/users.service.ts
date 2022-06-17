@@ -8,6 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.entity';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -19,6 +20,9 @@ export class UsersService {
   async createUser(dto: CreateUserDto) {
     try {
       const user = this.usersRepository.create(dto);
+
+      const hashedPassword = await bcrypt.hash(dto.password, 5);
+      user.password = hashedPassword;
 
       await this.usersRepository.save(user);
       return user;
@@ -39,6 +43,15 @@ export class UsersService {
     const user = await this.usersRepository.findOne({
       where: {
         id: userId,
+      },
+    });
+    return user;
+  }
+
+  async getUserByEmail(email: string) {
+    const user = await this.usersRepository.findOne({
+      where: {
+        email,
       },
     });
     return user;
