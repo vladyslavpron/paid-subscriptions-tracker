@@ -1,3 +1,4 @@
+import { type } from 'os';
 import { User } from 'src/users/user.entity';
 import {
   Column,
@@ -5,6 +6,7 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  RelationId,
 } from 'typeorm';
 
 @Entity({ name: 'subscriptions' })
@@ -18,14 +20,19 @@ export class Subscription {
   @Column()
   price: number;
 
-  @Column()
+  @Column({ type: 'date' })
   startDate: Date;
 
-  @Column()
+  @Column({ type: 'date', nullable: true })
   endDate: Date;
 
-  // { eager: true }
-  @ManyToOne(() => User)
-  // @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
+  @Column()
   userId: number;
+
+  // { eager: true }
+  @ManyToOne((type) => User)
+  @JoinColumn()
+
+  // @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
+  user: User;
 }

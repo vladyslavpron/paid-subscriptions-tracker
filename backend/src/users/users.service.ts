@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   HttpCode,
   HttpException,
   HttpStatus,
@@ -30,7 +31,7 @@ export class UsersService {
       if (err.code === '23505') {
         throw new HttpException(err.detail, HttpStatus.BAD_REQUEST);
       }
-      console.log(err);
+      throw new BadRequestException();
     }
   }
 

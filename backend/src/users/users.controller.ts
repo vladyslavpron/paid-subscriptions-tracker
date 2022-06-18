@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { Request } from 'express';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { CreateSubscriptionDto } from 'src/subscriptions/dto/create-subscription.dto';
 import { Subscription } from 'src/subscriptions/subscription.entity';
 import { SubscriptionsService } from 'src/subscriptions/subscriptions.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -45,11 +46,12 @@ export class UsersController {
     return this.subscriptionsService.getUserSubscriptions(user);
   }
 
+  @UseGuards(AuthGuard)
   @Post('/:userId/subscriptions')
   createUserSubscription(
-    @Param('userId') userId: number,
-    @Body() subscription: Subscription,
+    @CurrentUser() user: User,
+    @Body() subscriptionDto: CreateSubscriptionDto,
   ) {
-    return this.subscriptionsService.createSubscription(subscription);
+    return this.subscriptionsService.createSubscription(subscriptionDto, user);
   }
 }
