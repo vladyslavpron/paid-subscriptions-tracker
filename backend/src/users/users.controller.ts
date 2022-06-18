@@ -17,12 +17,9 @@ import { CurrentUser } from './user.decorator';
 import { User } from './user.entity';
 import { UsersService } from './users.service';
 
-@Controller('users')
+@Controller('api/users')
 export class UsersController {
-  constructor(
-    private usersService: UsersService,
-    private subscriptionsService: SubscriptionsService,
-  ) {}
+  constructor(private usersService: UsersService) {}
 
   @Post()
   create(@Body() userDto: CreateUserDto) {
@@ -38,20 +35,5 @@ export class UsersController {
   @Get('/:userId')
   getUserById(@Param('userId') userId: number) {
     return this.usersService.getUserById(userId);
-  }
-
-  @UseGuards(AuthGuard)
-  @Get('/:userId/subscriptions')
-  getUserSubscriptions(@CurrentUser() user: User) {
-    return this.subscriptionsService.getUserSubscriptions(user);
-  }
-
-  @UseGuards(AuthGuard)
-  @Post('/:userId/subscriptions')
-  createUserSubscription(
-    @CurrentUser() user: User,
-    @Body() subscriptionDto: CreateSubscriptionDto,
-  ) {
-    return this.subscriptionsService.createSubscription(subscriptionDto, user);
   }
 }

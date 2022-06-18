@@ -10,6 +10,8 @@ import { SubscriptionsModule } from './subscriptions/subscriptions.module';
 
 import * as dotenv from 'dotenv';
 import { Subscription } from './subscriptions/subscription.entity';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import * as path from 'path';
 
 dotenv.config({ path: './config.env' });
 
@@ -32,11 +34,14 @@ dotenv.config({ path: './config.env' });
               },
             },
     }),
+    ServeStaticModule.forRoot({
+      rootPath: path.join(__dirname, '..', '..', 'frontend', 'build'),
+    }),
     UsersModule,
     AuthModule,
     SubscriptionsModule,
   ],
-  controllers: [AppController],
+  // controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
