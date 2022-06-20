@@ -1,5 +1,7 @@
-import authReducer from "./auth";
+import authReducer from "./auth/auth";
 
-export default {
-  authReducer,
+const reducers = {
+  auth: authReducer,
 };
+
+export default reducers;

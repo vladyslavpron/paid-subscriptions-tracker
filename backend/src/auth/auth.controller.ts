@@ -1,14 +1,14 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { LoginUserDto } from 'src/users/dto/login-user.dto';
 import { AuthService } from './auth.service';
 
-@Controller('api/auth')
+@Controller('api/auth/')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @Post('/register')
+  @Post('register')
   async register(
     @Body() userDto: CreateUserDto,
     @Res({ passthrough: true }) res: Response,
@@ -22,7 +22,8 @@ export class AuthController {
     return registrationData;
   }
 
-  @Post('/login')
+  @Post('login')
+  @HttpCode(200)
   async login(
     @Body() userDto: LoginUserDto,
     @Res({ passthrough: true }) res: Response,
@@ -36,5 +37,15 @@ export class AuthController {
     });
 
     return loginData;
+  }
+
+  @Post('logout')
+  @HttpCode(200)
+  logout(@Res({ passthrough: true }) res: Response) {
+    res.clearCookie('accessToken', {
+      httpOnly: true,
+      secure: process.env.NODE_END === 'production',
+    });
+    return;
   }
 }

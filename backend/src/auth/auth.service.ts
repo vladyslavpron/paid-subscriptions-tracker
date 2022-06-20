@@ -34,8 +34,12 @@ export class AuthService {
     }
     const token = this.generateToken(user);
 
-    return { token };
+    delete user.password;
+
+    return { user, token };
   }
+
+  
 
   generateToken(user: User) {
     const payload = { id: user.id, email: user.email };

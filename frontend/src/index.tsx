@@ -31,6 +31,7 @@ import {
 } from "chart.js";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+import axios from "axios";
 
 Chart.register(
   ArcElement,
@@ -59,9 +60,13 @@ Chart.register(
   SubTitle
 );
 
+axios.defaults.baseURL = "http://localhost:3001/";
+axios.defaults.withCredentials = true;
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
 root.render(
   <Provider store={store}>
     <App />

@@ -1,15 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useTypedDispatch } from "../../hooks/useTypedDispatch";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { RouteNames } from "../../routes";
+import { AuthActionCreators } from "../../store/reducers/auth/action-creators";
 import styles from "./Navbar.module.css";
 
 const Navbar = () => {
-  const auth = true;
+  const dispatch = useTypedDispatch();
+  const { isAuth, user } = useTypedSelector((state) => state.auth);
+  console.log(user);
 
-  const logoutHandler = () => {};
+  const logoutHandler = () => {
+    dispatch(AuthActionCreators.logout());
+  };
 
-  return auth ? (
+  return isAuth ? (
     <div className={styles.navbar}>
+      <div>Hi, {user.name}</div>
       <button className={styles.navbarItem} onClick={logoutHandler}>
         Log Out
       </button>
