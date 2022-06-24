@@ -35,12 +35,22 @@ export const AuthActionCreators = {
       dispatch(AuthActionCreators.setIsAuth(true));
       dispatch(AuthActionCreators.setUser(response.data.user));
 
-      console.log(response.data.user);
+      // console.log(response.data.user);
       //   console.log(email, password);
     } catch (e) {
       console.log(e);
       dispatch(AuthActionCreators.setIsLoading(false));
       dispatch(AuthActionCreators.setError("errorrr???"));
+    }
+  },
+
+  verifyUser: () => async (dispatch: AppDispatch) => {
+    try {
+      const response = await API.verify();
+      dispatch(AuthActionCreators.setIsAuth(true));
+      dispatch(AuthActionCreators.setUser(response.data.user));
+    } catch (e) {
+      console.log(e);
     }
   },
 

@@ -19,6 +19,10 @@ export default class API {
     });
   }
 
+  static async verify(): Promise<AxiosResponse<LoginResponse>> {
+    return $api.get("/auth/verify");
+  }
+
   static async logout(): Promise<AxiosResponse<void>> {
     return $api.post("/auth/logout");
   }

@@ -1,11 +1,18 @@
 import React, { useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
+import API from "./api/api";
 import "./App.css";
 import AppRouter from "./components/AppRouter";
 import Navbar from "./components/navbar/Navbar";
+import { useTypedDispatch } from "./hooks/useTypedDispatch";
+import { AuthActionCreators } from "./store/reducers/auth/action-creators";
 
 function App() {
-  // useEffect(() => {}, []);
+  const dispatch = useTypedDispatch();
+
+  useEffect(() => {
+    dispatch(AuthActionCreators.verifyUser());
+  }, []);
   return (
     <div className="App">
       <BrowserRouter>

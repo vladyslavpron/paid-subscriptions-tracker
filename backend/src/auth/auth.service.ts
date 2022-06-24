@@ -39,7 +39,12 @@ export class AuthService {
     return { user, token };
   }
 
-  
+  async loginVerifiedUser(id: number) {
+    const user = await this.usersService.getUserById(id);
+    delete user.password;
+    const token = this.generateToken(user);
+    return { user, token };
+  }
 
   generateToken(user: User) {
     const payload = { id: user.id, email: user.email };
