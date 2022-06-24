@@ -31,7 +31,6 @@ import {
 } from "chart.js";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
-import axios from "axios";
 
 Chart.register(
   ArcElement,

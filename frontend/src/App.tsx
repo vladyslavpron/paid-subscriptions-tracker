@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
-import API from "./api/api";
 import "./App.css";
 import AppRouter from "./components/AppRouter";
 import Navbar from "./components/navbar/Navbar";
@@ -12,7 +11,7 @@ function App() {
 
   useEffect(() => {
     dispatch(AuthActionCreators.verifyUser());
-  }, []);
+  }, [dispatch]);
   return (
     <div className="App">
       <BrowserRouter>

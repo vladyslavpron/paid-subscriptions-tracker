@@ -9,7 +9,6 @@ import styles from "./Navbar.module.css";
 const Navbar = () => {
   const dispatch = useTypedDispatch();
   const { isAuth, user } = useTypedSelector((state) => state.auth);
-  console.log(user);
 
   const logoutHandler = () => {
     dispatch(AuthActionCreators.logout());

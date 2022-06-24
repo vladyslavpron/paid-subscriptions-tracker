@@ -6,7 +6,6 @@ import { privateRoutes, publicRoutes, RouteNames } from "../routes";
 
 const AppRouter = () => {
   const { isAuth } = useTypedSelector((state) => state.auth);
-  console.log(isAuth);
 
   return isAuth ? (
     <Routes>

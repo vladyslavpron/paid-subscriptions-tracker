@@ -1,4 +1,3 @@
-import axios from "axios";
 import API from "../../../api/api";
 import { IUser } from "../../../types/IUser";
 import { AppDispatch } from "../../store";
@@ -27,6 +26,7 @@ export const AuthActionCreators = {
     type: AuthActionsEnum.SET_ERROR,
     payload: error,
   }),
+
   login: (email: string, password: string) => async (dispatch: AppDispatch) => {
     try {
       dispatch(AuthActionCreators.setIsLoading(true));
@@ -34,13 +34,13 @@ export const AuthActionCreators = {
       dispatch(AuthActionCreators.setIsLoading(false));
       dispatch(AuthActionCreators.setIsAuth(true));
       dispatch(AuthActionCreators.setUser(response.data.user));
-
-      // console.log(response.data.user);
-      //   console.log(email, password);
-    } catch (e) {
-      console.log(e);
+    } catch (err: any) {
       dispatch(AuthActionCreators.setIsLoading(false));
-      dispatch(AuthActionCreators.setError("errorrr???"));
+      dispatch(
+        AuthActionCreators.setError(
+          err.response?.data?.message.join(", ") || err.message
+        )
+      );
     }
   },
 
@@ -50,7 +50,24 @@ export const AuthActionCreators = {
       dispatch(AuthActionCreators.setIsAuth(true));
       dispatch(AuthActionCreators.setUser(response.data.user));
     } catch (e) {
-      console.log(e);
+      // console.log(e);
+    }
+  },
+
+  register: (user: IUser) => async (dispatch: AppDispatch) => {
+    try {
+      dispatch(AuthActionCreators.setIsLoading(true));
+      const response = await API.register(user);
+      dispatch(AuthActionCreators.setIsLoading(false));
+      dispatch(AuthActionCreators.setIsAuth(true));
+      dispatch(AuthActionCreators.setUser(response.data.user));
+    } catch (err: any) {
+      dispatch(AuthActionCreators.setIsLoading(false));
+      dispatch(
+        AuthActionCreators.setError(
+          err.response?.data?.message.join(", ") || err.message
+        )
+      );
     }
   },
 

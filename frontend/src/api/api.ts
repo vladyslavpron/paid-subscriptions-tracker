@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import { IUser } from "../types/IUser";
 import { LoginResponse } from "./response/LoginResponse";
 
 const API_URL = "http://localhost:3001/api";
@@ -17,6 +18,10 @@ export default class API {
       email,
       password,
     });
+  }
+
+  static async register(user: IUser): Promise<AxiosResponse<LoginResponse>> {
+    return $api.post("/auth/register", { ...user });
   }
 
   static async verify(): Promise<AxiosResponse<LoginResponse>> {
