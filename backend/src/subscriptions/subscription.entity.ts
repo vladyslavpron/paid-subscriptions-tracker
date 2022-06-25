@@ -15,7 +15,7 @@ export class Subscription {
   id: number;
 
   @Column()
-  name: string;
+  title: string;
 
   @Column()
   price: number;

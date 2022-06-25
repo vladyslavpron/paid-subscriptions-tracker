@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Line } from "react-chartjs-2";
 import Button from "../components/button/Button";
+import Modal from "../components/modal/Modal";
+import NewSubscriptionForm from "../components/newSubscriptionForm/NewSubscriptionForm";
 import styles from "./Dashboard.module.css";
 
 const Dashboard = () => {
+  const [modalActive, setModalActive] = useState(false);
+
   const chartData = {
     labels: ["$123", "$12123", "$1223"],
     datasets: [
@@ -19,7 +23,9 @@ const Dashboard = () => {
   return (
     <div className={styles.dashboardBlock}>
       <div className={styles.spendingsRow}>
-        <Button>Add new subscription</Button>
+        <Button onClick={() => setModalActive(true)}>
+          Add new subscription
+        </Button>
         <div>Total subscriptions: </div>
         <div>Closest payment date: </div>
       </div>
@@ -35,6 +41,9 @@ const Dashboard = () => {
         </div>
         <div className={styles.spendingsBlock}>donut graph price</div>
       </div>
+      <Modal active={modalActive} setActive={setModalActive}>
+        <NewSubscriptionForm />
+      </Modal>
     </div>
   );
 };

@@ -9,7 +9,7 @@ import {
 
 export class CreateSubscriptionDto {
   @IsString({ message: 'Name must be a string' })
-  readonly name: string;
+  readonly title: string;
 
   @IsNumber({}, { message: 'Price must be a number' })
   //   TODO: must be positive integer
