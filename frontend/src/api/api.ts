@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import { ISubscription } from "../types/ISubscription";
 import { IUser } from "../types/IUser";
 import { LoginResponse } from "./response/LoginResponse";
 
@@ -30,5 +31,15 @@ export default class API {
 
   static async logout(): Promise<AxiosResponse<void>> {
     return $api.post("/auth/logout");
+  }
+
+  static async getUserSubscriptions(): Promise<AxiosResponse<ISubscription[]>> {
+    return $api.get("/subscriptions");
+  }
+
+  static async createUserSubscription(
+    subscription: ISubscription
+  ): Promise<AxiosResponse<ISubscription>> {
+    return $api.post("/subscriptions", { ...subscription });
   }
 }

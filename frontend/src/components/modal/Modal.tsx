@@ -8,8 +8,6 @@ interface props {
 }
 
 const Modal = ({ children, active, setActive }: props) => {
-  console.log([styles.modal, styles.active].join(" "));
-
   return (
     <div
       className={

@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import Button from "../components/button/Button";
 import Modal from "../components/modal/Modal";
 import NewSubscriptionForm from "../components/newSubscriptionForm/NewSubscriptionForm";
+import SubscriptionsList from "../components/subscriptionsList/SubscriptionsList";
+import { useTypedDispatch } from "../hooks/useTypedDispatch";
+import { useTypedSelector } from "../hooks/useTypedSelector";
+import { SubscriptionActionCreators } from "../store/reducers/subscription/action-creators";
 import styles from "./Dashboard.module.css";
 
 const Dashboard = () => {
+  const dispatch = useTypedDispatch();
+  const { subscriptions } = useTypedSelector((state) => state.subscription);
+
   const [modalActive, setModalActive] = useState(false);
 
   const chartData = {
@@ -19,6 +26,10 @@ const Dashboard = () => {
       },
     ],
   };
+
+  useEffect(() => {
+    dispatch(SubscriptionActionCreators.fetchSubscriptions());
+  }, [dispatch]);
 
   return (
     <div className={styles.dashboardBlock}>
@@ -35,7 +46,9 @@ const Dashboard = () => {
         <div className={styles.spendingsBlock}>You spend $42383 total</div>
       </div>
       <div className={styles.spendingsRow}>
-        <div className={styles.spendingsBlock}>list with subscriptions </div>
+        <div className={styles.spendingsBlock}>
+          <SubscriptionsList subscriptions={subscriptions}></SubscriptionsList>
+        </div>
         <div className={styles.spendingsBlock}>
           spendings chart for months <Line data={chartData}></Line>
         </div>

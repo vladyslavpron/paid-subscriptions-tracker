@@ -19,7 +19,6 @@ const RegisterForm = () => {
 
   const formSubmitHandler = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log("Form submited!");
     if (password !== passwordConfirm) {
       dispatch(AuthActionCreators.setError("passwords doesn't match"));
     } else {

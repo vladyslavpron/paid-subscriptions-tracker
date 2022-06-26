@@ -1,0 +1,16 @@
+.table {
+  /* border: 2px solid black; */
+  border-collapse: collapse;
+}
+.tableHead {
+  border: 2px solid teal;
+  color: teal;
+}
+.tableRow {
+  text-align: center;
+  border: 2px solid teal;
+}
+.tableData {
+  padding: 3px 15px;
+  border: 2px solid teal;
+}

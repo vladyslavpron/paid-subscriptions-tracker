@@ -1,5 +1,6 @@
 /* .subscriptionBlock {
 } */
+
 .form {
   display: flex;
   flex-direction: column;
@@ -14,4 +15,8 @@
 }
 .header {
   font-size: 1.5rem;
+}
+
+.error {
+  color: red;
 }

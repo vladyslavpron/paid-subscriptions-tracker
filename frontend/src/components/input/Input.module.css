@@ -5,5 +5,8 @@
   display: block;
 }
 
+.input[type="date"] {
+  padding: 0px 27px;
+}
 /* .input {
 } */
