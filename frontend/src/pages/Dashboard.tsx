@@ -9,6 +9,12 @@ import { useTypedSelector } from "../hooks/useTypedSelector";
 import { SubscriptionActionCreators } from "../store/reducers/subscription/action-creators";
 import styles from "./Dashboard.module.css";
 
+import calculateClosestPaymentDate from "../utils/calculateClosestPaymentDate";
+import { ISubscription } from "../types/ISubscription";
+import moment from "moment";
+import calculateTotalSpendings from "../utils/calculateTotalSpendings";
+import calculateMonthlySpendings from "../utils/calculateMonthlySpendings";
+
 const Dashboard = () => {
   const dispatch = useTypedDispatch();
   const { subscriptions } = useTypedSelector((state) => state.subscription);
@@ -27,6 +33,10 @@ const Dashboard = () => {
     ],
   };
 
+  const closestPaymentDate = calculateClosestPaymentDate(subscriptions);
+  const totalSpendings = calculateTotalSpendings(subscriptions);
+  const monthlySpendings = calculateMonthlySpendings(subscriptions);
+
   useEffect(() => {
     dispatch(SubscriptionActionCreators.fetchSubscriptions());
   }, [dispatch]);
@@ -37,13 +47,20 @@ const Dashboard = () => {
         <Button onClick={() => setModalActive(true)}>
           Add new subscription
         </Button>
-        <div>Total subscriptions: </div>
-        <div>Closest payment date: </div>
+        <div>Total subscriptions: {subscriptions.length}</div>
+        <div>
+          Closest payment in {}
+          {closestPaymentDate} {closestPaymentDate > 1 ? "days" : "day"}
+        </div>
       </div>
       <div className={styles.spendingsRow}>
-        <div className={styles.spendingsBlock}>You spend $1238 every month</div>
-        <div className={styles.spendingsBlock}>You spend $13 every day</div>
-        <div className={styles.spendingsBlock}>You spend $42383 total</div>
+        <div className={styles.spendingsBlock}>
+          You spend ${monthlySpendings} every month
+        </div>
+        <div className={styles.spendingsBlock}>You ??</div>
+        <div className={styles.spendingsBlock}>
+          You have spent ${totalSpendings} total
+        </div>
       </div>
       <div className={styles.spendingsRow}>
         <div className={styles.spendingsBlock}>
