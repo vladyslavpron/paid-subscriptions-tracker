@@ -4,11 +4,13 @@ import {
   HttpException,
   HttpStatus,
   Injectable,
+  NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/users/user.entity';
 import { Repository } from 'typeorm';
 import { CreateSubscriptionDto } from './dto/create-subscription.dto';
+import { UpdateSubscriptionDto } from './dto/update-subscription.dto';
 import { Subscription } from './subscription.entity';
 
 @Injectable()
@@ -37,6 +39,23 @@ export class SubscriptionsService {
       } else {
         throw new BadRequestException();
       }
+    }
+  }
+
+  async updateSubscription(
+    subscriptionId: number,
+    data: UpdateSubscriptionDto,
+  ) {
+    try {
+      const subscription = await this.subscriptionsRepository.findOneBy({
+        id: subscriptionId,
+      });
+      if (!subscription) throw new NotFoundException('subscription not found');
+
+      return this.subscriptionsRepository.save({ ...subscription, ...data });
+    } catch (err) {
+      console.log(err);
+      throw new HttpException('something went wrong', HttpStatus.BAD_REQUEST);
     }
   }
 }
