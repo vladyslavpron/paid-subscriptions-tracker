@@ -11,27 +11,15 @@ import styles from "./Dashboard.module.css";
 
 import calculateClosestPaymentDate from "../utils/calculateClosestPaymentDate";
 import { ISubscription } from "../types/ISubscription";
-import moment from "moment";
 import calculateTotalSpendings from "../utils/calculateTotalSpendings";
 import calculateMonthlySpendings from "../utils/calculateMonthlySpendings";
+import SpendingsChart from "../components/spendingsChart/SpendingsChart";
 
 const Dashboard = () => {
   const dispatch = useTypedDispatch();
   const { subscriptions } = useTypedSelector((state) => state.subscription);
 
   const [modalActive, setModalActive] = useState(false);
-
-  const chartData = {
-    labels: ["$123", "$12123", "$1223"],
-    datasets: [
-      {
-        label: "myline",
-        backgroundColor: "wheat",
-        data: [10, 100, 50],
-        borderColor: "black",
-      },
-    ],
-  };
 
   const closestPaymentDate = calculateClosestPaymentDate(subscriptions);
   const totalSpendings = calculateTotalSpendings(subscriptions);
@@ -40,6 +28,8 @@ const Dashboard = () => {
   useEffect(() => {
     dispatch(SubscriptionActionCreators.fetchSubscriptions());
   }, [dispatch]);
+
+  console.log(subscriptions);
 
   return (
     <div className={styles.dashboardBlock}>
@@ -67,7 +57,8 @@ const Dashboard = () => {
           <SubscriptionsList subscriptions={subscriptions}></SubscriptionsList>
         </div>
         <div className={styles.spendingsBlock}>
-          spendings chart for months <Line data={chartData}></Line>
+          spendings chart for months
+          <SpendingsChart subscriptions={subscriptions} />
         </div>
         <div className={styles.spendingsBlock}>donut graph price</div>
       </div>
