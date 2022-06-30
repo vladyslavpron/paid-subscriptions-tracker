@@ -14,6 +14,7 @@ import { ISubscription } from "../types/ISubscription";
 import calculateTotalSpendings from "../utils/calculateTotalSpendings";
 import calculateMonthlySpendings from "../utils/calculateMonthlySpendings";
 import SpendingsChart from "../components/spendingsChart/SpendingsChart";
+import DoughnutChart from "../components/doughnutChart/DoughnutChart";
 
 const Dashboard = () => {
   const dispatch = useTypedDispatch();
@@ -60,7 +61,10 @@ const Dashboard = () => {
           spendings chart for months
           <SpendingsChart subscriptions={subscriptions} />
         </div>
-        <div className={styles.spendingsBlock}>donut graph price</div>
+        <div className={styles.spendingsBlock}>
+          donut graph price
+          <DoughnutChart subscriptions={subscriptions} />
+        </div>
       </div>
       <Modal active={modalActive} setActive={setModalActive}>
         <NewSubscriptionForm />
