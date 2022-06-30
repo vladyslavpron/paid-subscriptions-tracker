@@ -3,6 +3,8 @@ import { ISubscription } from "../../../types/ISubscription";
 import { AppDispatch } from "../../store";
 import {
   AddSubscriptionAction,
+  ModifySubscriptionAction,
+  RemoveSubscriptionAction,
   SetErrorAction,
   SetIsLoadingAction,
   SetSubscriptionsAction,
@@ -32,6 +34,20 @@ export const SubscriptionActionCreators = {
     payload: subscription,
   }),
 
+  removeSubscription: (
+    subscription: ISubscription
+  ): RemoveSubscriptionAction => ({
+    type: SubscriptionActionsEnum.REMOVE_SUBSCRIPTION,
+    payload: subscription,
+  }),
+
+  modifySubscription: (
+    subscription: ISubscription
+  ): ModifySubscriptionAction => ({
+    type: SubscriptionActionsEnum.MODIFY_SUBSCRIPTION,
+    payload: subscription,
+  }),
+
   fetchSubscriptions: () => async (dispatch: AppDispatch) => {
     dispatch(SubscriptionActionCreators.setIsLoading(true));
     try {
@@ -53,6 +69,24 @@ export const SubscriptionActionCreators = {
       try {
         const response = await API.createUserSubscription(subscription);
         dispatch(SubscriptionActionCreators.addSubscription(response.data));
+      } catch (err: any) {
+        dispatch(SubscriptionActionCreators.setIsLoading(false));
+        dispatch(
+          SubscriptionActionCreators.setError(
+            err.response.data.message || err.message
+          )
+        );
+      }
+    },
+
+  updateSubscription:
+    (subscription: ISubscription) => async (dispatch: AppDispatch) => {
+      try {
+        const response = await API.updateUserSubscription(subscription);
+
+        console.log(response);
+
+        dispatch(SubscriptionActionCreators.modifySubscription(response.data));
       } catch (err: any) {
         dispatch(SubscriptionActionCreators.setIsLoading(false));
         dispatch(

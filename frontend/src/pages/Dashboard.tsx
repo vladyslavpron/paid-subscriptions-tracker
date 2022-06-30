@@ -30,7 +30,7 @@ const Dashboard = () => {
     dispatch(SubscriptionActionCreators.fetchSubscriptions());
   }, [dispatch]);
 
-  console.log(subscriptions);
+  console.log("dashborad render");
 
   return (
     <div className={styles.dashboardBlock}>

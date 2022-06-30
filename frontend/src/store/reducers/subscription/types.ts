@@ -11,6 +11,8 @@ export enum SubscriptionActionsEnum {
   SET_ERROR = "SET_ERROR",
   SET_IS_LOADING = "SET_IS_LOADING",
   ADD_SUBSCRIPTION = "ADD_SUBSCRIPTION",
+  REMOVE_SUBSCRIPTION = "REMOVE_SUBSCRIPTION",
+  MODIFY_SUBSCRIPTION = "MODIFY_SUBSCRIPTION",
 }
 
 export interface SetSubscriptionsAction {
@@ -33,8 +35,20 @@ export interface AddSubscriptionAction {
   payload: ISubscription;
 }
 
+export interface RemoveSubscriptionAction {
+  type: SubscriptionActionsEnum.REMOVE_SUBSCRIPTION;
+  payload: ISubscription;
+}
+
+export interface ModifySubscriptionAction {
+  type: SubscriptionActionsEnum.MODIFY_SUBSCRIPTION;
+  payload: ISubscription;
+}
+
 export type SubscriptionAction =
   | SetSubscriptionsAction
   | SetErrorAction
   | SetIsLoadingAction
-  | AddSubscriptionAction;
+  | AddSubscriptionAction
+  | RemoveSubscriptionAction
+  | ModifySubscriptionAction;

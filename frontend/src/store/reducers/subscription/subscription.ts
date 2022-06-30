@@ -26,6 +26,20 @@ export default function subscriptionReducer(
         ...state,
         subscriptions: [...state.subscriptions, action.payload],
       };
+    case SubscriptionActionsEnum.REMOVE_SUBSCRIPTION:
+      return {
+        ...state,
+        subscriptions: state.subscriptions.filter(
+          (subscription) => subscription.id !== action.payload.id
+        ),
+      };
+    case SubscriptionActionsEnum.MODIFY_SUBSCRIPTION:
+      return {
+        ...state,
+        subscriptions: state.subscriptions.map((subscription) =>
+          subscription.id === action.payload.id ? action.payload : subscription
+        ),
+      };
 
     default:
       return state;

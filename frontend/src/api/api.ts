@@ -42,4 +42,10 @@ export default class API {
   ): Promise<AxiosResponse<ISubscription>> {
     return $api.post("/subscriptions", { ...subscription });
   }
+
+  static async updateUserSubscription(
+    subscription: ISubscription
+  ): Promise<AxiosResponse<ISubscription>> {
+    return $api.patch(`/subscriptions/${subscription.id}`, { ...subscription });
+  }
 }

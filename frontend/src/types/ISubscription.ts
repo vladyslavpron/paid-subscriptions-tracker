@@ -3,5 +3,5 @@ export interface ISubscription {
   title: string;
   price: number;
   startDate: string;
-  endDate: Date | null;
+  endDate: string | null;
 }
