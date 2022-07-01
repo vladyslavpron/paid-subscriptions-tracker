@@ -1,9 +1,7 @@
-import { BADHINTS } from "dns";
 import React, { useState } from "react";
 import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { SubscriptionActionCreators } from "../../store/reducers/subscription/action-creators";
 import { ISubscription } from "../../types/ISubscription";
-import Button from "../button/Button";
 import Modal from "../modal/Modal";
 import UpdateSubscriptionForm from "../updateSubscriptionForm/UpdateSubscriptionForm";
 import styles from "./SubscriptionsList.module.css";

@@ -1,18 +1,11 @@
-import React, {
-  Dispatch,
-  FormEvent,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
-import { useTypedDispatch } from "../../hooks/useTypedDispatch";
+import React, { FormEvent, useEffect, useState } from "react";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { SubscriptionActionCreators } from "../../store/reducers/subscription/action-creators";
 import { ISubscription } from "../../types/ISubscription";
 import Button from "../button/Button";
 import Input from "../input/Input";
 import LoadingSpinner from "../loadingSpinner/LoadingSpinner";
 import styles from "./UpdateSubscriptionForm.module.css";
+
 interface props {
   subscription: ISubscription;
   updateSubscription: (subscription: ISubscription) => void;
@@ -22,7 +15,6 @@ const UpdateSubscriptionForm = ({
   subscription,
   updateSubscription,
 }: props) => {
-  const dispatch = useTypedDispatch();
   const { error, isLoading } = useTypedSelector((state) => state.subscription);
 
   const [sub, setSub] = useState<ISubscription>(subscription);

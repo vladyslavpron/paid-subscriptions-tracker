@@ -4,6 +4,7 @@ import {
   IsDateString,
   IsISO8601,
   IsNumber,
+  IsPositive,
   IsString,
 } from 'class-validator';
 
@@ -12,6 +13,7 @@ export class CreateSubscriptionDto {
   readonly title: string;
 
   @IsNumber({}, { message: 'Price must be a number' })
+  @IsPositive()
   //   TODO: must be positive integer
   readonly price: number;
 

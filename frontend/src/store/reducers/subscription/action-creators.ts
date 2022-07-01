@@ -58,7 +58,7 @@ export const SubscriptionActionCreators = {
       dispatch(SubscriptionActionCreators.setIsLoading(false));
       dispatch(
         SubscriptionActionCreators.setError(
-          err.response.data.message || err.message
+          err.response.data.message.join(", ") || err.message
         )
       );
     }
@@ -68,12 +68,14 @@ export const SubscriptionActionCreators = {
     (subscription: ISubscription) => async (dispatch: AppDispatch) => {
       try {
         const response = await API.createUserSubscription(subscription);
+
         dispatch(SubscriptionActionCreators.addSubscription(response.data));
       } catch (err: any) {
+        console.log(err);
         dispatch(SubscriptionActionCreators.setIsLoading(false));
         dispatch(
           SubscriptionActionCreators.setError(
-            err.response.data.message || err.message
+            err.response.data.message.join(", ") || err.message
           )
         );
       }
@@ -91,7 +93,7 @@ export const SubscriptionActionCreators = {
         dispatch(SubscriptionActionCreators.setIsLoading(false));
         dispatch(
           SubscriptionActionCreators.setError(
-            err.response.data.message || err.message
+            err.response.data.message.join(", ") || err.message
           )
         );
       }

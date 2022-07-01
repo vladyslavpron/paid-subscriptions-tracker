@@ -17,7 +17,7 @@ export class Subscription {
   @Column()
   title: string;
 
-  @Column()
+  @Column({ type: 'float' })
   price: number;
 
   @Column({ type: 'date' })

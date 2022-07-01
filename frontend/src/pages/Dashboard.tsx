@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Line } from "react-chartjs-2";
 import Button from "../components/button/Button";
 import Modal from "../components/modal/Modal";
 import NewSubscriptionForm from "../components/newSubscriptionForm/NewSubscriptionForm";
@@ -20,7 +19,7 @@ const Dashboard = () => {
   const dispatch = useTypedDispatch();
   const { subscriptions } = useTypedSelector((state) => state.subscription);
 
-  const [modalActive, setModalActive] = useState(false);
+  const [newSubModalActive, setNewSubModalActive] = useState(false);
 
   const closestPaymentDate = calculateClosestPaymentDate(subscriptions);
   const totalSpendings = calculateTotalSpendings(subscriptions);
@@ -30,12 +29,17 @@ const Dashboard = () => {
     dispatch(SubscriptionActionCreators.fetchSubscriptions());
   }, [dispatch]);
 
+  const createSubscription = (subscription: ISubscription) => {
+    dispatch(SubscriptionActionCreators.createSubscription(subscription));
+    setNewSubModalActive(false);
+  };
+
   console.log("dashborad render");
 
   return (
     <div className={styles.dashboardBlock}>
       <div className={styles.spendingsRow}>
-        <Button onClick={() => setModalActive(true)}>
+        <Button onClick={() => setNewSubModalActive(true)}>
           Add new subscription
         </Button>
         <div>Total subscriptions: {subscriptions.length}</div>
@@ -66,8 +70,12 @@ const Dashboard = () => {
           <DoughnutChart subscriptions={subscriptions} />
         </div>
       </div>
-      <Modal active={modalActive} setActive={setModalActive}>
-        <NewSubscriptionForm />
+      <Modal active={newSubModalActive} setActive={setNewSubModalActive}>
+        <NewSubscriptionForm
+          createSubscription={createSubscription}
+          modalActive={newSubModalActive}
+          setModalActive={setNewSubModalActive}
+        />
       </Modal>
     </div>
   );
