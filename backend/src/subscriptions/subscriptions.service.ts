@@ -50,11 +50,31 @@ export class SubscriptionsService {
       const subscription = await this.subscriptionsRepository.findOneBy({
         id: subscriptionId,
       });
+
       if (!subscription) throw new NotFoundException('subscription not found');
+
+      if (data.endDate && data.endDate < subscription.startDate) {
+        throw new HttpException(
+          'endDate must be later date than startDate',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+      if (data.startDate && data.endDate && data.endDate < data.startDate) {
+        throw new HttpException(
+          'endDate must be later date than startDate',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+      if (data.startDate && subscription.endDate < data.startDate) {
+        throw new HttpException(
+          'startDate must be earlier date than startDate',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
 
       return this.subscriptionsRepository.save({ ...subscription, ...data });
     } catch (err) {
-      console.log(err);
+      if (err.status) throw new HttpException(err.response, err.status);
       throw new HttpException('something went wrong', HttpStatus.BAD_REQUEST);
     }
   }

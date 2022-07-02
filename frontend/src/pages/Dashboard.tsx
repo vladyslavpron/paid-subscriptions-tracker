@@ -34,16 +34,16 @@ const Dashboard = () => {
     setNewSubModalActive(false);
   };
 
-  console.log("dashborad render");
-
   return (
     <div className={styles.dashboardBlock}>
       <div className={styles.spendingsRow}>
         <Button onClick={() => setNewSubModalActive(true)}>
           Add new subscription
         </Button>
-        <div>Total subscriptions: {subscriptions.length}</div>
-        <div>
+        <div className={styles.spendingsBlock}>
+          Total subscriptions: {subscriptions.length}
+        </div>
+        <div className={styles.spendingsBlock}>
           Closest payment in {}
           {closestPaymentDate} {closestPaymentDate > 1 ? "days" : "day"}
         </div>
@@ -52,15 +52,12 @@ const Dashboard = () => {
         <div className={styles.spendingsBlock}>
           You spend ${monthlySpendings} every month
         </div>
-        <div className={styles.spendingsBlock}>You ??</div>
+
         <div className={styles.spendingsBlock}>
           You have spent ${totalSpendings} total
         </div>
       </div>
       <div className={styles.spendingsRow}>
-        <div className={styles.spendingsBlock}>
-          <SubscriptionsList subscriptions={subscriptions}></SubscriptionsList>
-        </div>
         <div className={styles.spendingsBlock}>
           spendings chart for months
           <SpendingsChart subscriptions={subscriptions} />
@@ -68,6 +65,12 @@ const Dashboard = () => {
         <div className={styles.spendingsBlock}>
           donut graph price
           <DoughnutChart subscriptions={subscriptions} />
+        </div>
+      </div>
+
+      <div className={styles.spendingsRow}>
+        <div className={styles.spendingsBlock}>
+          <SubscriptionsList subscriptions={subscriptions}></SubscriptionsList>
         </div>
       </div>
       <Modal active={newSubModalActive} setActive={setNewSubModalActive}>

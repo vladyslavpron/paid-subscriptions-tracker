@@ -23,12 +23,11 @@ const UpdateSubscriptionForm = ({
     setSub(subscription);
   }, [subscription]);
 
-  console.log("form render");
-
   const updateSub = (event: FormEvent) => {
     event.preventDefault();
     updateSubscription(sub);
   };
+  // console.log(error);
 
   return (
     <form className={styles.form} onSubmit={(event) => updateSub(event)}>

@@ -31,12 +31,14 @@ const LoginForm = () => {
         input={email}
         onChange={(e) => setEmail(e.target.value)}
         type="email"
+        required
       />
       <Input
         label="Password: "
         input={password}
         onChange={(e) => setPassword(e.target.value)}
         type="password"
+        required
       ></Input>
 
       <Button>Login</Button>

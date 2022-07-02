@@ -14,7 +14,6 @@ export class CreateSubscriptionDto {
 
   @IsNumber({}, { message: 'Price must be a number' })
   @IsPositive()
-  //   TODO: must be positive integer
   readonly price: number;
 
   @Type(() => Date)

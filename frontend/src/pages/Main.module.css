@@ -1,6 +1,7 @@
 .mainBlock {
-  height: calc(100vh - 50px);
+  height: calc(100vh - 50px - 25px);
   display: flex;
+  row-gap: 30px;
   flex-direction: column;
   justify-content: center;
   align-items: center;

@@ -16,7 +16,7 @@ const Navbar = () => {
 
   return isAuth ? (
     <div className={styles.navbar}>
-      <div>Hi, {user.name}</div>
+      <div className={styles.navbarGreeting}>Hi, {user.name}</div>
       <button className={styles.navbarItem} onClick={logoutHandler}>
         Log Out
       </button>

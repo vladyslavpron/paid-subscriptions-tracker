@@ -38,7 +38,9 @@ export const AuthActionCreators = {
       dispatch(AuthActionCreators.setIsLoading(false));
       dispatch(
         AuthActionCreators.setError(
-          err.response?.data?.message.join(", ") || err.message
+          Array.isArray(err.response?.data?.message)
+            ? err.response.data.message.join(", ")
+            : err.response.data.message || err.message
         )
       );
     }
@@ -65,7 +67,9 @@ export const AuthActionCreators = {
       dispatch(AuthActionCreators.setIsLoading(false));
       dispatch(
         AuthActionCreators.setError(
-          err.response?.data?.message.join(", ") || err.message
+          Array.isArray(err.response?.data?.message)
+            ? err.response.data.message.join(", ")
+            : err.response.data.message || err.message
         )
       );
     }

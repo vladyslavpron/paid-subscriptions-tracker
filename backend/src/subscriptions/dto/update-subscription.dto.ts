@@ -1,5 +1,11 @@
 import { Type } from 'class-transformer';
-import { IsDate, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsDate,
+  IsNumber,
+  IsOptional,
+  IsPositive,
+  IsString,
+} from 'class-validator';
 
 export class UpdateSubscriptionDto {
   @IsOptional()
@@ -8,7 +14,7 @@ export class UpdateSubscriptionDto {
 
   @IsOptional()
   @IsNumber({}, { message: 'Price must be a number' })
-  //   TODO: must be positive integer
+  @IsPositive()
   readonly price: number;
 
   @IsOptional()

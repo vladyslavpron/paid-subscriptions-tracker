@@ -50,6 +50,7 @@ export const SubscriptionActionCreators = {
 
   fetchSubscriptions: () => async (dispatch: AppDispatch) => {
     dispatch(SubscriptionActionCreators.setIsLoading(true));
+    dispatch(SubscriptionActionCreators.setError(""));
     try {
       const response = await API.getUserSubscriptions();
       dispatch(SubscriptionActionCreators.setSubscriptions(response.data));
@@ -58,7 +59,9 @@ export const SubscriptionActionCreators = {
       dispatch(SubscriptionActionCreators.setIsLoading(false));
       dispatch(
         SubscriptionActionCreators.setError(
-          err.response.data.message.join(", ") || err.message
+          Array.isArray(err.response?.data?.message)
+            ? err.response.data.message.join(", ")
+            : err.response.data.message || err.message
         )
       );
     }
@@ -66,16 +69,21 @@ export const SubscriptionActionCreators = {
 
   createSubscription:
     (subscription: ISubscription) => async (dispatch: AppDispatch) => {
+      dispatch(SubscriptionActionCreators.setError(""));
+      dispatch(SubscriptionActionCreators.setIsLoading(true));
+
       try {
         const response = await API.createUserSubscription(subscription);
 
         dispatch(SubscriptionActionCreators.addSubscription(response.data));
       } catch (err: any) {
-        console.log(err);
+        // console.log(err);
         dispatch(SubscriptionActionCreators.setIsLoading(false));
         dispatch(
           SubscriptionActionCreators.setError(
-            err.response.data.message.join(", ") || err.message
+            Array.isArray(err.response?.data?.message)
+              ? err.response.data.message.join(", ")
+              : err.response.data.message || err.message
           )
         );
       }
@@ -86,14 +94,18 @@ export const SubscriptionActionCreators = {
       try {
         const response = await API.updateUserSubscription(subscription);
 
-        console.log(response);
+        // console.log(response);
 
         dispatch(SubscriptionActionCreators.modifySubscription(response.data));
       } catch (err: any) {
+        // console.log(err);
+
         dispatch(SubscriptionActionCreators.setIsLoading(false));
         dispatch(
           SubscriptionActionCreators.setError(
-            err.response.data.message.join(", ") || err.message
+            Array.isArray(err.response?.data?.message)
+              ? err.response.data.message.join(", ")
+              : err.response.data.message || err.message
           )
         );
       }
