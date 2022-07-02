@@ -25,14 +25,20 @@ dotenv.config({ path: './config.env' });
       synchronize: true,
       ssl: true,
 
-      // extra:
-      //   process.env.NODE_ENV === 'production'
-      //     ? {}
-      //     : {
-      //         ssl: {
-      //           rejectUnauthorized: false,
-      //         },
-      //       },
+      extra:{
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      }
+    
+
+        // process.env.NODE_ENV === 'production'
+        //   ? {}
+        //   : {
+        //       ssl: {
+        //         rejectUnauthorized: false,
+        //       },
+        //     },
     }),
     ServeStaticModule.forRoot({
       rootPath: path.join(__dirname, '..', 'build'),
