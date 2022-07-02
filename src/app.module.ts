@@ -41,7 +41,7 @@ dotenv.config({ path: './config.env' });
         //     },
     }),
     ServeStaticModule.forRoot({
-      rootPath: path.join(__dirname, 'build'),
+      rootPath: path.join(__dirname, '..', 'build'),
     }),
     UsersModule,
     AuthModule,
